@@ -1,3 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">EduNovel</string>
+    
+    <!-- Splash -->
+    <string name="tagline">Learn Through Stories</string>
+    
+    <!-- Auth -->
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="login_subtitle">Login to continue learning</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="create_account">Create Account</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="join_us">Join us and start learning!</string>
+    <string name="logout">Logout</string>
+    
+    <!-- Character Strings -->
+    <string name="create_character">Create Character</string>
+    <string name="edit_character">Edit Character</string>
+    <string name="character_name">Character Name</string>
+    <string name="personality">Personality</string>
+    <string name="subject">Subject</string>
+    <string name="description">Description</string>
+    <string name="select_image">Select Image</string>
+    <string name="save_character">Save Character</string>
+    <string name="delete_character">Delete Character</string>
+    <string name="my_characters">My Characters</string>
+    <string name="no_characters">No characters yet.\nCreate your first character!</string>
+    <string name="default_badge">DEFAULT</string>
+    <string name="cannot_edit_default">Cannot edit default characters</string>
+    <string name="cannot_delete_default">Cannot delete default characters</string>
+    
+    <!-- Main Menu -->
+    <string name="story_mode">Story Mode</string>
+    <string name="quiz_challenge">Quiz Challenge</string>
+    <string name="my_progress">My Progress</string>
+    <string name="high_scores">High Scores</string>
+    <string name="about">About</string>
+    
+    <!-- Common Strings -->
+    <string name="loading">Loading…</string>
+    <string name="error_occurred">An error occurred</string>
+    <string name="try_again">Try Again</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="finish">Finish</string>
+    <string name="start">Start</string>
+    
+    <!-- Validation Messages -->
+    <string name="username_required">Username is required</string>
+    <string name="username_too_short">Username must be at least 3 characters</string>
+    <string name="email_required">Email is required</string>
+    <string name="email_invalid">Please enter a valid email</string>
+    <string name="password_required">Password is required</string>
+    <string name="password_too_short">Password must be at least 6 characters</string>
+    <string name="password_mismatch">Passwords do not match</string>
+    <string name="username_exists">Username already exists</string>
+    <string name="invalid_credentials">Invalid username or password</string>
+    
+    <!-- Success Messages -->
+    <string name="login_success">Login successful!</string>
+    <string name="register_success">Registration successful! Please login.</string>
+    <string name="character_created">Character created successfully!</string>
+    <string name="character_updated">Character updated successfully!</string>
+    <string name="character_deleted">Character deleted</string>
+    
+    <!-- Helper Text -->
+    <string name="helper_username">At least 3 characters</string>
+    <string name="helper_password">At least 6 characters</string>
 </resources>
