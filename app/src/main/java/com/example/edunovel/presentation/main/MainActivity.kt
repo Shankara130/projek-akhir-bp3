@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun navigateToStoryMode() {
-        val intent = Intent(this, StoryModeActivity::class.java)
+        val intent = Intent(this, ChapterSelectionActivity::class.java)
         startActivity(intent)
     }
     

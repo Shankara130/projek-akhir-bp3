@@ -2,6 +2,8 @@ package com.example.edunovel.di
 
 import com.example.edunovel.domain.usecase.auth.*
 import com.example.edunovel.domain.usecase.character.*
+import com.example.edunovel.domain.usecase.progress.*
+import com.example.edunovel.domain.usecase.story.*
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -16,4 +18,11 @@ val useCaseModule = module {
     factory { GetUserCharactersUseCase(get()) }
     factory { UpdateCharacterUseCase(get()) }
     factory { DeleteCharacterUseCase(get()) }
+    
+    // Progress Use Cases
+    factory { SaveProgressUseCase(get()) }
+    
+    // Story Use Cases
+    factory { GetStoryContentUseCase(get(), get()) }
+    factory { GetChaptersUseCase(get(), get()) }
 }
