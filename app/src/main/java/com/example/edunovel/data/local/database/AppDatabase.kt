@@ -1,4 +1,4 @@
-package com.yourname.edunovel.data.local.database
+package com.example.edunovel.data.local.database
 
 import android.content.Context
 import androidx.room.Database
@@ -6,9 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.yourname.edunovel.data.local.database.converters.StringListConverter
-import com.yourname.edunovel.data.local.database.dao.*
-import com.yourname.edunovel.data.local.database.entity.*
+import com.example.edunovel.data.local.database.converters.StringListConverter
+import com.example.edunovel.data.local.database.dao.*
+import com.example.edunovel.data.local.database.entity.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
