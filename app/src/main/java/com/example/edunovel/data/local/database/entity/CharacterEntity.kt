@@ -2,17 +2,44 @@ package com.example.edunovel.data.local.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.edunovel.domain.model.Character
 
 @Entity(tableName = "characters")
 data class CharacterEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val userId: Int,
+    val id: Long = 0,
     val name: String,
-    val imageUri: String?, // Path to image
-    val personality: String, // Friendly, Serious, Cheerful, etc
-    val subject: String, // Math, Science, English, etc
+    val subject: String,
+    val personality: String,
     val description: String,
-    val isDefault: Boolean = false, // Pre-loaded characters
-    val createdAt: Long = System.currentTimeMillis()
+    val imageUrl: String,
+    val userId: Long,
+    val createdAt: Long
 )
+
+// Mapper functions
+fun CharacterEntity.toDomainModel(): Character {
+    return Character(
+        id = id,
+        name = name,
+        subject = subject,
+        personality = personality,
+        description = description,
+        imageUrl = imageUrl,
+        userId = userId,
+        createdAt = createdAt
+    )
+}
+
+fun Character.toEntity(): CharacterEntity {
+    return CharacterEntity(
+        id = id,
+        name = name,
+        subject = subject,
+        personality = personality,
+        description = description,
+        imageUrl = imageUrl,
+        userId = userId,
+        createdAt = createdAt
+    )
+}

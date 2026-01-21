@@ -20,4 +20,16 @@
     <color name="text_primary">#1F2937</color>
     <color name="text_secondary">#6B7280</color>
     <color name="text_hint">#9CA3AF</color>
+
+        <color name="answer_default">#F5F5F5</color>
+    <color name="answer_selected">#E3F2FD</color>
+    <color name="answer_correct">#4CAF50</color>
+    <color name="answer_wrong">#F44336</color>
+
+    <!-- UI element colors -->
+    <color name="stroke">#E0E0E0</color>
+    <color name="chip_background">#F5F5F5</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="progress_track">#E0E0E0</color>
+    <color name="info_background">#E3F2FD</color>
 </resources>

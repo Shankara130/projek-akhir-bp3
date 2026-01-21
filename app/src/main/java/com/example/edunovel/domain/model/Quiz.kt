@@ -1,10 +1,10 @@
 package com.example.edunovel.domain.model
 
 data class Quiz(
-    val id: Int = 0,
-    val userId: Int,
+    val id: Long = 0,
+    val title: String,
     val subject: String,
-    val score: Int,
+    val questions: List<QuizQuestion>,
     val totalQuestions: Int,
-    val completedAt: Long = System.currentTimeMillis()
+    val passingScore: Int = 70
 )

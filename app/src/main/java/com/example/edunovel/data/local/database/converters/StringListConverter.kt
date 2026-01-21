@@ -1,19 +1,32 @@
-package com.example.edunovel.data.local.database.converters
+package com.example.edunovel.data.local.database
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class StringListConverter {
+class Converters {
+    
+    private val gson = Gson()
     
     @TypeConverter
-    fun fromStringList(value: List<String>): String {
-        return Gson().toJson(value)
+    fun fromStringList(value: List<String>?): String? {
+        return gson.toJson(value)
     }
     
     @TypeConverter
-    fun toStringList(value: String): List<String> {
+    fun toStringList(value: String?): List<String>? {
+        if (value == null) return null
         val listType = object : TypeToken<List<String>>() {}.type
-        return Gson().fromJson(value, listType)
+        return gson.fromJson(value, listType)
+    }
+    
+    @TypeConverter
+    fun fromLong(value: Long?): String? {
+        return value?.toString()
+    }
+    
+    @TypeConverter
+    fun toLong(value: String?): Long? {
+        return value?.toLongOrNull()
     }
 }

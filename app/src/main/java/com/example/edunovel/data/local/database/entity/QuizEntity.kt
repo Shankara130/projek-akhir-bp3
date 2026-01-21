@@ -2,14 +2,19 @@ package com.example.edunovel.data.local.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.edunovel.data.local.database.Converters
 
-@Entity(tableName = "quiz_results")
+@Entity(tableName = "quizzes")
+@TypeConverters(Converters::class)
 data class QuizEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val userId: Int,
-    val subject: String,
+    val id: Long = 0,
+    val userId: Long,
+    val quizId: Long,
     val score: Int,
     val totalQuestions: Int,
-    val completedAt: Long = System.currentTimeMillis()
+    val correctAnswers: Int,
+    val completedAt: Long,
+    val isPassed: Boolean
 )

@@ -1,17 +1,12 @@
 package com.example.edunovel.domain.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
 data class Character(
-    val id: Int = 0,
-    val userId: Int,
+    val id: Long = 0,
     val name: String,
-    val imageUri: String?,
-    val personality: String,
     val subject: String,
-    val description: String,
-    val isDefault: Boolean = false,
+    val personality: String,
+    val description: String = "",
+    val imageUrl: String = "",
+    val userId: Long,
     val createdAt: Long = System.currentTimeMillis()
-) : Parcelable
+)

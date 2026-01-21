@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_filter"
+        android:title="Filter"
+        android:icon="@drawable/ic_filter"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_sort"
+        android:title="Urutkan"
+        android:icon="@drawable/ic_sort"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/sort_name_asc"
+                android:title="Nama (A-Z)" />
+            <item
+                android:id="@+id/sort_name_desc"
+                android:title="Nama (Z-A)" />
+            <item
+                android:id="@+id/sort_subject"
+                android:title="Mata Pelajaran" />
+            <item
+                android:id="@+id/sort_date_newest"
+                android:title="Terbaru" />
+            <item
+                android:id="@+id/sort_date_oldest"
+                android:title="Terlama" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_search"
+        android:title="Cari"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
+</menu>

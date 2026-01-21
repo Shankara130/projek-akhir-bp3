@@ -6,13 +6,11 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "materials")
 data class MaterialEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val chapterId: Int,
-    val subject: String,
+    val id: Long = 0,
     val title: String,
+    val subject: String,
     val content: String,
-    val characterId: Int, // Link to character
-    val dialogueText: String,
-    val hasQuiz: Boolean = false,
-    val orderIndex: Int = 0
+    val type: String,
+    val order: Int,
+    val createdAt: Long
 )

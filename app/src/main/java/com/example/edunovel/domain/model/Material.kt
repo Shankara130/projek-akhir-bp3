@@ -1,13 +1,11 @@
 package com.example.edunovel.domain.model
 
 data class Material(
-    val id: Int = 0,
-    val chapterId: Int,
-    val subject: String,
+    val id: Long = 0,
     val title: String,
+    val subject: String,
     val content: String,
-    val characterId: Int,
-    val dialogueText: String,
-    val hasQuiz: Boolean = false,
-    val orderIndex: Int = 0
+    val type: String, // "story", "lesson", "exercise"
+    val order: Int = 0,
+    val createdAt: Long = System.currentTimeMillis()
 )

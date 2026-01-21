@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.edunovel"
-        minSdk = 36
+        minSdk = 28
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -48,7 +48,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
+    implementation("com.google.code.gson:gson:2.10.1")
 
     implementation("androidx.sqlite:sqlite-ktx:2.4.0")
 }
