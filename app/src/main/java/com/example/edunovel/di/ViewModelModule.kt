@@ -25,4 +25,10 @@ val viewModelModule = module {
     
     // Quiz ViewModel
     viewModel { QuizViewModel(get(), get(), get()) }
+    
+    // Progress ViewModel
+    viewModel { ProgressViewModel(get(), get(), get()) }
+    
+    // HighScore ViewModel
+    viewModel { HighScoreViewModel(get()) }
 }
