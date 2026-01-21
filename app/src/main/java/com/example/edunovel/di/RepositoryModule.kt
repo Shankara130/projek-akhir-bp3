@@ -9,4 +9,5 @@ val repositoryModule = module {
     single<CharacterRepository> { CharacterRepositoryImpl(get()) }
     single<ProgressRepository> { ProgressRepositoryImpl(get()) }
     single<MaterialRepository> { MaterialRepositoryImpl(get()) }
+    single<QuizRepository> { QuizRepositoryImpl(get(), get()) }
 }

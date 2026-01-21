@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun navigateToQuiz() {
-        val intent = Intent(this, QuizActivity::class.java)
+        val intent = Intent(this, QuizSelectionActivity::class.java)
         startActivity(intent)
     }
     
