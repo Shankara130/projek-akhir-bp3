@@ -1,4 +1,4 @@
-package com.yourname.edunovel.data.local.preferences
+package com.example.edunovel.data.local.preferences
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -9,19 +9,19 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
-private val Context.dataStore: DataStore by preferencesDataStore(name = "user_preferences")
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_preferences")
 
 class UserPreferences(context: Context) {
     
     private val dataStore = context.dataStore
     
     private object PreferencesKeys {
-        val USER_ID = intPreferencesKey("user_id")
+        val USER_ID = longPreferencesKey("user_id")
         val USERNAME = stringPreferencesKey("username")
         val IS_LOGGED_IN = booleanPreferencesKey("is_logged_in")
     }
     
-    suspend fun saveUserSession(userId: Int, username: String) {
+    suspend fun saveUserSession(userId: Long, username: String) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.USER_ID] = userId
             preferences[PreferencesKeys.USERNAME] = username
@@ -35,7 +35,7 @@ class UserPreferences(context: Context) {
         }
     }
     
-    val userSession: Flow = dataStore.data
+    val userSession: Flow<UserSession> = dataStore.data
         .catch { exception ->
             if (exception is IOException) {
                 emit(emptyPreferences())
@@ -45,14 +45,14 @@ class UserPreferences(context: Context) {
         }
         .map { preferences ->
             UserSession(
-                userId = preferences[PreferencesKeys.USER_ID] ?: 0,
+                userId = preferences[PreferencesKeys.USER_ID] ?: 0L,
                 username = preferences[PreferencesKeys.USERNAME] ?: "",
                 isLoggedIn = preferences[PreferencesKeys.IS_LOGGED_IN] ?: false
             )
         }
     
     data class UserSession(
-        val userId: Int,
+        val userId: Long,
         val username: String,
         val isLoggedIn: Boolean
     )

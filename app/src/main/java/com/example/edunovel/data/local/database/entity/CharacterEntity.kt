@@ -14,7 +14,8 @@ data class CharacterEntity(
     val description: String,
     val imageUrl: String,
     val userId: Long,
-    val createdAt: Long
+    val createdAt: Long,
+    val isDefault: Boolean = false
 )
 
 // Mapper functions
@@ -27,7 +28,8 @@ fun CharacterEntity.toDomainModel(): Character {
         description = description,
         imageUrl = imageUrl,
         userId = userId,
-        createdAt = createdAt
+        createdAt = createdAt,
+        isDefault = isDefault
     )
 }
 
@@ -40,6 +42,7 @@ fun Character.toEntity(): CharacterEntity {
         description = description,
         imageUrl = imageUrl,
         userId = userId,
-        createdAt = createdAt
+        createdAt = createdAt,
+        isDefault = isDefault
     )
 }

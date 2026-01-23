@@ -1,6 +1,6 @@
 package com.example.edunovel.domain.usecase.quiz
 
-import com.example.edunovel.domain.model.Quiz
+import com.example.edunovel.domain.model.QuizSession
 import com.example.edunovel.domain.repository.QuizRepository
 import com.example.edunovel.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.map
 class GetQuizHistoryUseCase(
     private val repository: QuizRepository
 ) {
-    operator fun invoke(userId: Int): Flow<Resource<List<Quiz>>> {
+    operator fun invoke(userId: Long): Flow<Resource<List<QuizSession>>> {
         return repository.getAllQuizResults(userId)
-            .map<List<Quiz>, Resource<List<Quiz>>> { Resource.Success(it) }
+            .map<List<QuizSession>, Resource<List<QuizSession>>> { Resource.Success(it) }
             .catch { emit(Resource.Error(it.localizedMessage ?: "Failed to load history")) }
     }
 }

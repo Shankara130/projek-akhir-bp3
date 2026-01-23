@@ -47,7 +47,7 @@
                     android:src="@drawable/ic_character_placeholder" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabChangeImage"
+                    android:id="@+id/btnSelectImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
@@ -87,11 +87,11 @@
                 android:hint="Mata Pelajaran"
                 app:startIconDrawable="@drawable/ic_book">
 
-                <AutoCompleteTextView
-                    android:id="@+id/actvSubject"
+                <Spinner
+                    android:id="@+id/spinnerSubject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:padding="12dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,42 +125,12 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroupPersonality"
+            <Spinner
+                android:id="@+id/spinnerPersonality"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipFriendly"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ramah" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipSerious"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Serius" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipFunny"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lucu" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipWise"
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bijaksana" />
-
-            </com.google.android.material.chip.ChipGroup>
+                android:padding="12dp" />
 
             <!-- Save Button -->
             <com.google.android.material.button.MaterialButton

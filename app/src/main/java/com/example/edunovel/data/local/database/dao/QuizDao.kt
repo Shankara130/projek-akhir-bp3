@@ -10,13 +10,13 @@ interface QuizDao {
     suspend fun insertQuizResult(quiz: QuizEntity): Long
     
     @Query("SELECT * FROM quiz_results WHERE userId = :userId ORDER BY completedAt DESC")
-    fun getAllQuizResults(userId: Int): Flow<List>
+    fun getAllQuizResults(userId: Long): Flow<List<QuizEntity>>
     
     @Query("SELECT * FROM quiz_results WHERE userId = :userId AND subject = :subject ORDER BY score DESC LIMIT 1")
-    suspend fun getHighestScore(userId: Int, subject: String): QuizEntity?
+    suspend fun getHighestScore(userId: Long, subject: String): QuizEntity?
     
     @Query("SELECT * FROM quiz_results ORDER BY score DESC LIMIT 10")
-    fun getTopScores(): Flow<List>
+    fun getTopScores(): Flow<List<QuizEntity>>
     
     @Delete
     suspend fun deleteQuizResult(quiz: QuizEntity)

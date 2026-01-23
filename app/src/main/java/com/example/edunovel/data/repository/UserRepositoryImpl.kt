@@ -23,7 +23,7 @@ class UserRepositoryImpl(
         return userDao.getUserByUsername(username)?.toDomain()
     }
     
-    override fun getUserById(userId: Int): Flow {
+    override fun getUserById(userId: Long): Flow<User?> {
         return userDao.getUserById(userId).map { it?.toDomain() }
     }
     
@@ -40,6 +40,8 @@ class UserRepositoryImpl(
         username = username,
         password = password,
         email = email,
+        fullName = fullName,
+        avatarUrl = avatarUrl,
         createdAt = createdAt
     )
     
@@ -48,6 +50,8 @@ class UserRepositoryImpl(
         username = username,
         password = password,
         email = email,
+        fullName = fullName,
+        avatarUrl = avatarUrl,
         createdAt = createdAt
     )
 }

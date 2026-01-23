@@ -9,8 +9,9 @@ data class MaterialEntity(
     val id: Long = 0,
     val title: String,
     val subject: String,
+    val chapterId: Int,
     val content: String,
     val type: String,
-    val order: Int,
+    val orderIndex: Int,
     val createdAt: Long
 )

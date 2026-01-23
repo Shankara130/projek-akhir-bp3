@@ -2,14 +2,15 @@ package com.example.edunovel.domain.repository
 
 import com.example.edunovel.domain.model.Quiz
 import com.example.edunovel.domain.model.QuizQuestion
+import com.example.edunovel.domain.model.QuizSession
 import kotlinx.coroutines.flow.Flow
 
 interface QuizRepository {
-    suspend fun insertQuizResult(quiz: Quiz): Long
-    fun getAllQuizResults(userId: Int): Flow<List<Quiz>>
-    suspend fun getHighestScore(userId: Int, subject: String): Quiz?
-    fun getTopScores(): Flow<List<Quiz>>
-    suspend fun deleteQuizResult(quiz: Quiz)
+    suspend fun insertQuizResult(quizSession: QuizSession): Long
+    fun getAllQuizResults(userId: Long): Flow<List<QuizSession>>
+    suspend fun getHighestScore(userId: Long, subject: String): QuizSession?
+    fun getTopScores(): Flow<List<QuizSession>>
+    suspend fun deleteQuizResult(quizSession: QuizSession)
     
     // Quiz Questions
     suspend fun insertQuestions(questions: List<QuizQuestion>)

@@ -15,6 +15,8 @@ import com.example.edunovel.presentation.character.CharacterListActivity
 import com.example.edunovel.presentation.highscore.HighScoreActivity
 import com.example.edunovel.presentation.progress.ProgressActivity
 import com.example.edunovel.presentation.quiz.QuizActivity
+import com.example.edunovel.presentation.quiz.QuizSelectionActivity
+import com.example.edunovel.presentation.story.ChapterSelectionActivity
 import com.example.edunovel.presentation.story.StoryModeActivity
 import com.example.edunovel.util.Resource
 import org.koin.androidx.viewmodel.ext.android.viewModel

@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.map
 class GetUserCharactersUseCase(
     private val repository: CharacterRepository
 ) {
-    operator fun invoke(userId: Int): Flow<Resource<List>> {
+    operator fun invoke(userId: Long): Flow<Resource<List<Character>>> {
         return repository.getUserCharacters(userId)
-            .map<List, Resource<List>> { 
+            .map<List<Character>, Resource<List<Character>>> { 
                 Resource.Success(it) 
             }
             .catch { emit(Resource.Error(it.localizedMessage ?: "Failed to load characters")) }

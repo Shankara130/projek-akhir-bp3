@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.flow
 class CreateCharacterUseCase(
     private val repository: CharacterRepository
 ) {
-    operator fun invoke(character: Character): Flow<Resource> = flow {
+    operator fun invoke(character: Character): Flow<Resource<Long>> = flow {
         try {
-            emit(Resource.Loading())
+            emit(Resource.Loading)
             
             if (character.name.isBlank()) {
                 emit(Resource.Error("Character name cannot be empty"))

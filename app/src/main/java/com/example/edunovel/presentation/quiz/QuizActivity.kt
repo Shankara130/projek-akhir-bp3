@@ -3,7 +3,6 @@ package com.example.edunovel.presentation.quiz
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -52,6 +51,7 @@ class QuizActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
                     binding.contentLayout.visibility = View.VISIBLE
+                    updateUI()
                 }
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -61,8 +61,8 @@ class QuizActivity : AppCompatActivity() {
             }
         }
         
-        viewModel.quizSession.observe(this) { session ->
-            updateUI(session)
+        viewModel.currentQuestionIndex.observe(this) { 
+            updateUI()
         }
         
         viewModel.saveResultState.observe(this) { result ->
@@ -80,17 +80,23 @@ class QuizActivity : AppCompatActivity() {
     
     private fun setupListeners() {
         binding.rgOptions.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.rbOption1 -> viewModel.answerQuestion(0)
-                R.id.rbOption2 -> viewModel.answerQuestion(1)
-                R.id.rbOption3 -> viewModel.answerQuestion(2)
-                R.id.rbOption4 -> viewModel.answerQuestion(3)
+            val answerIndex = when (checkedId) {
+                R.id.rbOption1 -> 0
+                R.id.rbOption2 -> 1
+                R.id.rbOption3 -> 2
+                R.id.rbOption4 -> 3
+                else -> -1
+            }
+            if (answerIndex != -1) {
+                viewModel.answerQuestion(answerIndex)
             }
         }
         
         binding.btnNext.setOnClickListener {
-            val session = viewModel.quizSession.value
-            if (session != null && session.currentQuestionIndex == session.getTotalQuestions() - 1) {
+            val questions = (viewModel.quizState.value as? Resource.Success)?.data ?: return@setOnClickListener
+            val currentIndex = viewModel.currentQuestionIndex.value ?: 0
+            
+            if (currentIndex == questions.size - 1) {
                 showFinishConfirmation()
             } else {
                 viewModel.nextQuestion()
@@ -102,14 +108,16 @@ class QuizActivity : AppCompatActivity() {
         }
     }
     
-    private fun updateUI(session: com.example.edunovel.domain.model.QuizSession) {
-        val question = session.getCurrentQuestion() ?: return
+    private fun updateUI() {
+        val questions = (viewModel.quizState.value as? Resource.Success)?.data ?: return
+        val currentIndex = viewModel.currentQuestionIndex.value ?: 0
+        val question = questions.getOrNull(currentIndex) ?: return
         
         // Update question number
-        binding.tvQuestionNumber.text = "Question ${session.currentQuestionIndex + 1} of ${session.getTotalQuestions()}"
+        binding.tvQuestionNumber.text = "Question ${currentIndex + 1} of ${questions.size}"
         
         // Update progress
-        val progress = ((session.currentQuestionIndex + 1) * 100) / session.getTotalQuestions()
+        val progress = ((currentIndex + 1) * 100) / questions.size
         binding.progressIndicator.progress = progress
         
         // Update question text
@@ -135,11 +143,11 @@ class QuizActivity : AppCompatActivity() {
         
         // Update navigation buttons
         binding.btnPrevious.apply {
-            isEnabled = session.currentQuestionIndex > 0
+            isEnabled = currentIndex > 0
             alpha = if (isEnabled) 1.0f else 0.5f
         }
         
-        binding.btnNext.text = if (session.currentQuestionIndex == session.getTotalQuestions() - 1) {
+        binding.btnNext.text = if (currentIndex == questions.size - 1) {
             "Finish"
         } else {
             "Next"
@@ -147,26 +155,20 @@ class QuizActivity : AppCompatActivity() {
     }
     
     private fun showFinishConfirmation() {
-        val session = viewModel.quizSession.value ?: return
-        val answered = session.getAnsweredCount()
-        val total = session.getTotalQuestions()
-        
-        if (answered < total) {
-            AlertDialog.Builder(this)
-                .setTitle("Finish Quiz?")
-                .setMessage("You have answered $answered out of $total questions. Do you want to finish?")
-                .setPositiveButton("Finish") { _, _ ->
-                    viewModel.finishQuiz()
-                }
-                .setNegativeButton("Continue", null)
-                .show()
-        } else {
-            viewModel.finishQuiz()
-        }
+        // Logic simplified: just show confirmation if any question is not answered
+        // For simplicity, we can let user finish anytime
+        AlertDialog.Builder(this)
+            .setTitle("Finish Quiz?")
+            .setMessage("Do you want to submit your answers?")
+            .setPositiveButton("Finish") { _, _ ->
+                viewModel.finishQuiz()
+            }
+            .setNegativeButton("Continue", null)
+            .show()
     }
     
     private fun navigateToResult() {
-        val session = viewModel.quizSession.value ?: return
+        val session = viewModel.finishedQuizSession.value ?: return
         val intent = Intent(this, QuizResultActivity::class.java)
         intent.putExtra("QUIZ_SESSION", session)
         startActivity(intent)

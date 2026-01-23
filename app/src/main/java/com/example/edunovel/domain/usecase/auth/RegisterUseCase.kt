@@ -11,7 +11,7 @@ class RegisterUseCase(
 ) {
     operator fun invoke(username: String, email: String, password: String): Flow<Resource<Long>> = flow {
         try {
-            emit(Resource.Loading())
+            emit(Resource.Loading)
             
             // Validation
             if (username.isBlank()) {

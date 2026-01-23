@@ -1,12 +1,12 @@
-package com.yourname.edunovel.presentation.story
+package com.example.edunovel.presentation.story
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.yourname.edunovel.databinding.ActivityChapterSelectionBinding
-import com.yourname.edunovel.util.Constants
+import com.example.edunovel.databinding.ActivityChapterSelectionBinding
+import com.example.edunovel.util.Constants
 
 class ChapterSelectionActivity : AppCompatActivity() {
     

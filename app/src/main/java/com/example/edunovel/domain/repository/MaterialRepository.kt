@@ -8,5 +8,6 @@ interface MaterialRepository {
     suspend fun insertMaterials(materials: List<Material>)
     fun getMaterialsBySubject(subject: String): Flow<List<Material>>
     suspend fun getMaterialsByChapter(chapterId: Int): List<Material>
-    suspend fun getMaterialById(materialId: Int): Material?
+    suspend fun getMaterialById(materialId: Long): Material?
+    fun getAllMaterials(): Flow<List<Material>>
 }

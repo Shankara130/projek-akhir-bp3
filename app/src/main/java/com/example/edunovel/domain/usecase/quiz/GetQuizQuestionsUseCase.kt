@@ -11,7 +11,7 @@ class GetQuizQuestionsUseCase(
 ) {
     operator fun invoke(subject: String, questionCount: Int = 10): Flow<Resource<List<QuizQuestion>>> = flow {
         try {
-            emit(Resource.Loading())
+            emit(Resource.Loading)
             
             val questions = repository.getRandomQuestions(subject, questionCount)
             

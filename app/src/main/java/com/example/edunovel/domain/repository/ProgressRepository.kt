@@ -7,8 +7,8 @@ interface ProgressRepository {
     suspend fun insertProgress(progress: Progress): Long
     suspend fun updateProgress(progress: Progress)
     suspend fun deleteProgress(progress: Progress)
-    fun getAllProgress(userId: Int): Flow<List>
-    suspend fun getProgressByChapter(userId: Int, chapterId: Int): Progress?
-    fun getProgressBySubject(userId: Int, subject: String): Flow<List>
-    suspend fun deleteProgressById(progressId: Int)
+    fun getAllProgress(userId: Long): Flow<List<Progress>>
+    suspend fun getProgressByChapter(userId: Long, chapterId: Int): Progress?
+    fun getProgressBySubject(userId: Long, subject: String): Flow<List<Progress>>
+    suspend fun deleteProgressById(progressId: Long)
 }

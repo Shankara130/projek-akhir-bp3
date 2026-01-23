@@ -13,6 +13,7 @@ import com.example.edunovel.domain.usecase.quiz.SaveQuizResultUseCase
 import com.example.edunovel.util.Resource
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class QuizViewModel(
@@ -24,13 +25,20 @@ class QuizViewModel(
     private val _quizState = MutableLiveData<Resource<List<QuizQuestion>>>()
     val quizState: LiveData<Resource<List<QuizQuestion>>> = _quizState
     
-    private val _quizSession = MutableLiveData<QuizSession>()
-    val quizSession: LiveData<QuizSession> = _quizSession
+    // UI-specific session state
+    private val _currentQuestionIndex = MutableLiveData<Int>(0)
+    val currentQuestionIndex: LiveData<Int> = _currentQuestionIndex
+    
+    private val _userAnswers = MutableLiveData<MutableList<Int?>>()
     
     private val _saveResultState = MutableLiveData<Resource<Long>>()
     val saveResultState: LiveData<Resource<Long>> = _saveResultState
     
-    private var currentUserId: Int = 0
+    private val _finishedQuizSession = MutableLiveData<QuizSession>()
+    val finishedQuizSession: LiveData<QuizSession> = _finishedQuizSession
+    
+    private var currentUserId: Long = 0L
+    private var subject: String = ""
     
     init {
         viewModelScope.launch {
@@ -41,65 +49,73 @@ class QuizViewModel(
     }
     
     fun loadQuiz(subject: String, questionCount: Int = 10) {
+        this.subject = subject
         getQuizQuestionsUseCase(subject, questionCount).onEach { result ->
             _quizState.value = result
             
             if (result is Resource.Success && result.data != null) {
-                _quizSession.value = QuizSession(
-                    subject = subject,
-                    questions = result.data
-                )
+                _userAnswers.value = MutableList(result.data.size) { null }
+                _currentQuestionIndex.value = 0
             }
         }.launchIn(viewModelScope)
     }
     
     fun answerQuestion(answerIndex: Int) {
-        val session = _quizSession.value ?: return
+        val answers = _userAnswers.value ?: return
+        val index = _currentQuestionIndex.value ?: return
         
-        val newAnswers = session.userAnswers.toMutableList()
-        newAnswers[session.currentQuestionIndex] = answerIndex
-        
-        _quizSession.value = session.copy(userAnswers = newAnswers)
+        answers[index] = answerIndex
+        _userAnswers.value = answers
     }
     
     fun nextQuestion() {
-        val session = _quizSession.value ?: return
+        val currentIndex = _currentQuestionIndex.value ?: return
+        val questions = _quizState.value?.let { (it as? Resource.Success)?.data } ?: return
         
-        if (session.currentQuestionIndex < session.getTotalQuestions() - 1) {
-            _quizSession.value = session.copy(
-                currentQuestionIndex = session.currentQuestionIndex + 1
-            )
+        if (currentIndex < questions.size - 1) {
+            _currentQuestionIndex.value = currentIndex + 1
         }
     }
     
     fun previousQuestion() {
-        val session = _quizSession.value ?: return
+        val currentIndex = _currentQuestionIndex.value ?: return
         
-        if (session.currentQuestionIndex > 0) {
-            _quizSession.value = session.copy(
-                currentQuestionIndex = session.currentQuestionIndex - 1
-            )
+        if (currentIndex > 0) {
+            _currentQuestionIndex.value = currentIndex - 1
         }
     }
     
     fun finishQuiz() {
-        val session = _quizSession.value ?: return
+        val questions = _quizState.value?.let { (it as? Resource.Success)?.data } ?: return
+        val answers = _userAnswers.value ?: return
         
-        val score = session.calculateScore()
-        val quiz = Quiz(
+        var correctCount = 0
+        questions.forEachIndexed { index, question ->
+            if (answers[index] == question.correctAnswer) {
+                correctCount++
+            }
+        }
+        
+        val score = if (questions.isNotEmpty()) (correctCount * 100) / questions.size else 0
+        
+        val quizSession = QuizSession(
             userId = currentUserId,
-            subject = session.subject,
+            quizId = 0, // Placeholder
+            subject = subject,
             score = score,
-            totalQuestions = session.getTotalQuestions()
+            totalQuestions = questions.size,
+            correctAnswers = correctCount,
+            isPassed = score >= 70
         )
         
-        saveQuizResultUseCase(quiz).onEach { result ->
+        _finishedQuizSession.value = quizSession
+        saveQuizResultUseCase(quizSession).onEach { result ->
             _saveResultState.value = result
         }.launchIn(viewModelScope)
     }
     
     fun getCurrentAnswer(): Int? {
-        val session = _quizSession.value ?: return null
-        return session.userAnswers.getOrNull(session.currentQuestionIndex)
+        val index = _currentQuestionIndex.value ?: return null
+        return _userAnswers.value?.getOrNull(index)
     }
 }

@@ -7,7 +7,7 @@ interface UserRepository {
     suspend fun insertUser(user: User): Long
     suspend fun login(username: String, password: String): User?
     suspend fun getUserByUsername(username: String): User?
-    fun getUserById(userId: Int): Flow
+    fun getUserById(userId: Long): Flow<User?>
     suspend fun updateUser(user: User)
     suspend fun deleteUser(user: User)
 }

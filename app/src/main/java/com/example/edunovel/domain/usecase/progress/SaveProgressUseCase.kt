@@ -11,7 +11,7 @@ class SaveProgressUseCase(
 ) {
     operator fun invoke(progress: Progress): Flow<Resource<Long>> = flow {
         try {
-            emit(Resource.Loading())
+            emit(Resource.Loading)
             
             // Check if progress already exists
             val existing = repository.getProgressByChapter(progress.userId, progress.chapterId)

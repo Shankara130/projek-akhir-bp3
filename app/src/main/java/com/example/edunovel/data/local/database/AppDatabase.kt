@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.edunovel.data.local.database.converters.StringListConverter
 import com.example.edunovel.data.local.database.dao.*
 import com.example.edunovel.data.local.database.entity.*
 
@@ -14,18 +15,20 @@ import com.example.edunovel.data.local.database.entity.*
         CharacterEntity::class,
         ProgressEntity::class,
         QuizEntity::class,
+        QuizQuestionEntity::class,
         MaterialEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
-@TypeConverters(Converters::class)
+@TypeConverters(StringListConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     
     abstract fun userDao(): UserDao
     abstract fun characterDao(): CharacterDao
     abstract fun progressDao(): ProgressDao
     abstract fun quizDao(): QuizDao
+    abstract fun quizQuestionDao(): QuizQuestionDao
     abstract fun materialDao(): MaterialDao
     
     companion object {

@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.flow
 class DeleteCharacterUseCase(
     private val repository: CharacterRepository
 ) {
-    operator fun invoke(userId: Int, characterId: Int): Flow<Resource> = flow {
+    operator fun invoke(userId: Long, characterId: Long): Flow<Resource<Unit>> = flow {
         try {
-            emit(Resource.Loading())
+            emit(Resource.Loading)
             repository.deleteUserCharacter(userId, characterId)
             emit(Resource.Success(Unit))
         } catch (e: Exception) {

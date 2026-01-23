@@ -16,17 +16,17 @@ interface CharacterDao {
     suspend fun deleteCharacter(character: CharacterEntity)
     
     @Query("SELECT * FROM characters WHERE id = :characterId")
-    suspend fun getCharacterById(characterId: Int): CharacterEntity?
+    suspend fun getCharacterById(characterId: Long): CharacterEntity?
     
     @Query("SELECT * FROM characters WHERE userId = :userId OR isDefault = 1")
-    fun getUserCharacters(userId: Int): Flow<List>
+    fun getUserCharacters(userId: Long): Flow<List<CharacterEntity>>
     
     @Query("SELECT * FROM characters WHERE subject = :subject AND (userId = :userId OR isDefault = 1)")
-    fun getCharactersBySubject(userId: Int, subject: String): Flow<List>
+    fun getCharactersBySubject(userId: Long, subject: String): Flow<List<CharacterEntity>>
     
     @Query("SELECT * FROM characters WHERE isDefault = 1")
-    suspend fun getDefaultCharacters(): List
+    suspend fun getDefaultCharacters(): List<CharacterEntity>
     
     @Query("DELETE FROM characters WHERE userId = :userId AND id = :characterId")
-    suspend fun deleteUserCharacter(userId: Int, characterId: Int)
+    suspend fun deleteUserCharacter(userId: Long, characterId: Long)
 }

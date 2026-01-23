@@ -1,4 +1,4 @@
-package com.yourname.edunovel.presentation.character
+package com.example.edunovel.presentation.character
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yourname.edunovel.databinding.ActivityCharacterListBinding
-import com.yourname.edunovel.domain.model.Character
-import com.yourname.edunovel.presentation.character.adapter.CharacterAdapter
-import com.yourname.edunovel.util.Resource
+import com.example.edunovel.databinding.ActivityCharacterListBinding
+import com.example.edunovel.domain.model.Character
+import com.example.edunovel.presentation.character.adapter.CharacterAdapter
+import com.example.edunovel.util.Resource
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CharacterListActivity : AppCompatActivity() {

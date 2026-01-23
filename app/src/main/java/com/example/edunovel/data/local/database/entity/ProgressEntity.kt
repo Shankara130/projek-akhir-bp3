@@ -9,22 +9,24 @@ data class ProgressEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val userId: Long,
+    val chapterId: Int,
     val subject: String,
-    val chapterTitle: String,
-    val completionPercentage: Int,
-    val lastAccessed: Long,
-    val completed: Boolean
+    val isCompleted: Boolean = false,
+    val score: Int = 0,
+    val lastPosition: Int = 0,
+    val updatedAt: Long = System.currentTimeMillis()
 )
 
 fun ProgressEntity.toDomainModel(): Progress {
     return Progress(
         id = id,
         userId = userId,
+        chapterId = chapterId,
         subject = subject,
-        chapterTitle = chapterTitle,
-        completionPercentage = completionPercentage,
-        lastAccessed = lastAccessed,
-        completed = completed
+        isCompleted = isCompleted,
+        score = score,
+        lastPosition = lastPosition,
+        updatedAt = updatedAt
     )
 }
 
@@ -32,10 +34,11 @@ fun Progress.toEntity(): ProgressEntity {
     return ProgressEntity(
         id = id,
         userId = userId,
+        chapterId = chapterId,
         subject = subject,
-        chapterTitle = chapterTitle,
-        completionPercentage = completionPercentage,
-        lastAccessed = lastAccessed,
-        completed = completed
+        isCompleted = isCompleted,
+        score = score,
+        lastPosition = lastPosition,
+        updatedAt = updatedAt
     )
 }

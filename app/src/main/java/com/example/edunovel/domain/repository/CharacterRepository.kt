@@ -7,9 +7,9 @@ interface CharacterRepository {
     suspend fun insertCharacter(character: Character): Long
     suspend fun updateCharacter(character: Character)
     suspend fun deleteCharacter(character: Character)
-    suspend fun getCharacterById(characterId: Int): Character?
-    fun getUserCharacters(userId: Int): Flow<List>
-    fun getCharactersBySubject(userId: Int, subject: String): Flow<List>
-    suspend fun getDefaultCharacters(): List
-    suspend fun deleteUserCharacter(userId: Int, characterId: Int)
+    suspend fun getCharacterById(characterId: Long): Character?
+    fun getUserCharacters(userId: Long): Flow<List<Character>>
+    fun getCharactersBySubject(userId: Long, subject: String): Flow<List<Character>>
+    suspend fun getDefaultCharacters(): List<Character>
+    suspend fun deleteUserCharacter(userId: Long, characterId: Long)
 }

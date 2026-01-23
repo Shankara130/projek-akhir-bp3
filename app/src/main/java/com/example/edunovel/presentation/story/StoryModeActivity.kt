@@ -77,9 +77,9 @@ class StoryModeActivity : AppCompatActivity() {
                 binding.tvCharacterName.text = it.name
                 
                 // Load character image
-                if (it.imageUri != null) {
+                if (it.imageUrl.isNotEmpty()) {
                     Glide.with(this)
-                        .load(it.imageUri)
+                        .load(it.imageUrl)
                         .placeholder(R.drawable.ic_character_placeholder)
                         .into(binding.ivCharacter)
                 } else {
@@ -93,7 +93,7 @@ class StoryModeActivity : AppCompatActivity() {
         binding.btnNext.setOnClickListener {
             val material = viewModel.getCurrentMaterial()
             
-            if (material?.hasQuiz == true) {
+            if (material?.type == "exercise") {
                 // Show quiz before proceeding
                 showQuiz()
             } else {
@@ -114,7 +114,7 @@ class StoryModeActivity : AppCompatActivity() {
         val material = viewModel.getCurrentMaterial() ?: return
         
         binding.apply {
-            tvDialogue.text = material.dialogueText
+            tvDialogue.text = material.content
             tvContent.text = material.content
             tvTitle.text = material.title
         }
@@ -134,10 +134,11 @@ class StoryModeActivity : AppCompatActivity() {
     
     private fun updateProgressIndicator() {
         val current = viewModel.currentSlide.value ?: 0
-        viewModel.storyContent.value?.data?.let { materials ->
-            val total = materials.size
+        val materials = (viewModel.storyContent.value as? Resource.Success)?.data ?: return
+        
+        val total = materials.size
+        if (total > 0) {
             val progress = ((current + 1) * 100) / total
-            
             binding.progressIndicator.progress = progress
             binding.tvProgress.text = "${current + 1} / $total"
         }

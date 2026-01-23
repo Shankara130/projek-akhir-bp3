@@ -1,9 +1,9 @@
-package com.yourname.edunovel.data.repository
+package com.example.edunovel.data.repository
 
-import com.yourname.edunovel.data.local.database.dao.ProgressDao
-import com.yourname.edunovel.data.local.database.entity.ProgressEntity
-import com.yourname.edunovel.domain.model.Progress
-import com.yourname.edunovel.domain.repository.ProgressRepository
+import com.example.edunovel.data.local.database.dao.ProgressDao
+import com.example.edunovel.data.local.database.entity.ProgressEntity
+import com.example.edunovel.domain.model.Progress
+import com.example.edunovel.domain.repository.ProgressRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -23,23 +23,23 @@ class ProgressRepositoryImpl(
         progressDao.deleteProgress(progress.toEntity())
     }
     
-    override fun getAllProgress(userId: Int): Flow<List> {
+    override fun getAllProgress(userId: Long): Flow<List<Progress>> {
         return progressDao.getAllProgress(userId).map { entities ->
             entities.map { it.toDomain() }
         }
     }
     
-    override suspend fun getProgressByChapter(userId: Int, chapterId: Int): Progress? {
+    override suspend fun getProgressByChapter(userId: Long, chapterId: Int): Progress? {
         return progressDao.getProgressByChapter(userId, chapterId)?.toDomain()
     }
     
-    override fun getProgressBySubject(userId: Int, subject: String): Flow<List> {
+    override fun getProgressBySubject(userId: Long, subject: String): Flow<List<Progress>> {
         return progressDao.getProgressBySubject(userId, subject).map { entities ->
             entities.map { it.toDomain() }
         }
     }
     
-    override suspend fun deleteProgressById(progressId: Int) {
+    override suspend fun deleteProgressById(progressId: Long) {
         progressDao.deleteProgressById(progressId)
     }
     

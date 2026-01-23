@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.flow
 class UpdateCharacterUseCase(
     private val repository: CharacterRepository
 ) {
-    operator fun invoke(character: Character): Flow<Resource> = flow {
+    operator fun invoke(character: Character): Flow<Resource<Unit>> = flow {
         try {
-            emit(Resource.Loading())
+            emit(Resource.Loading)
             repository.updateCharacter(character)
             emit(Resource.Success(Unit))
         } catch (e: Exception) {

@@ -25,7 +25,7 @@ class ProgressViewModel(
     private val _deleteState = MutableLiveData<Resource<Unit>>()
     val deleteState: LiveData<Resource<Unit>> = _deleteState
     
-    private var currentUserId: Int = 0
+    private var currentUserId: Long = 0
     
     init {
         viewModelScope.launch {
@@ -39,12 +39,13 @@ class ProgressViewModel(
     }
     
     fun loadProgress() {
+        if (currentUserId == 0L) return
         getAllProgressUseCase(currentUserId).onEach { result ->
             _progressList.value = result
         }.launchIn(viewModelScope)
     }
     
-    fun deleteProgress(progressId: Int) {
+    fun deleteProgress(progressId: Long) {
         deleteProgressUseCase(progressId).onEach { result ->
             _deleteState.value = result
             if (result is Resource.Success) {

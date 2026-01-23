@@ -101,7 +101,7 @@ class ProgressActivity : AppCompatActivity() {
         }
     }
     
-    private fun showDeleteConfirmation(progressId: Int, subject: String) {
+    private fun showDeleteConfirmation(progressId: Long, subject: String) {
         AlertDialog.Builder(this)
             .setTitle("Hapus Progres")
             .setMessage("Hapus progres untuk $subject?")

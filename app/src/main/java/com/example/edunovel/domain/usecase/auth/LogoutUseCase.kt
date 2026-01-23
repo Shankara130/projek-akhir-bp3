@@ -10,7 +10,7 @@ class LogoutUseCase(
 ) {
     operator fun invoke(): Flow<Resource<Unit>> = flow {
         try {
-            emit(Resource.Loading())
+            emit(Resource.Loading)
             userPreferences.clearUserSession()
             emit(Resource.Success(Unit))
         } catch (e: Exception) {

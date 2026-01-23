@@ -11,7 +11,7 @@ class LoginUseCase(
 ) {
     operator fun invoke(username: String, password: String): Flow<Resource<User>> = flow {
         try {
-            emit(Resource.Loading())
+            emit(Resource.Loading)
             
             // Validation
             if (username.isBlank()) {

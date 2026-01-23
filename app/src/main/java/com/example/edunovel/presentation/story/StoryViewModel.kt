@@ -10,9 +10,11 @@ import com.example.edunovel.domain.model.Material
 import com.example.edunovel.domain.repository.CharacterRepository
 import com.example.edunovel.domain.usecase.progress.SaveProgressUseCase
 import com.example.edunovel.domain.usecase.story.GetStoryContentUseCase
+import com.example.edunovel.domain.model.Progress
 import com.example.edunovel.util.Resource
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class StoryViewModel(
@@ -31,7 +33,7 @@ class StoryViewModel(
     private val _character = MutableLiveData<Character?>()
     val character: LiveData<Character?> = _character
     
-    private var currentUserId: Int = 0
+    private var currentUserId: Long = 0L
     private var materials: List<Material> = emptyList()
     
     init {
@@ -48,14 +50,12 @@ class StoryViewModel(
             _storyContent.value = result
             if (result is Resource.Success) {
                 materials = result.data ?: emptyList()
-                if (materials.isNotEmpty()) {
-                    loadCharacter(materials[0].characterId)
-                }
+                // Character loading removed as Material no longer has characterId
             }
         }.launchIn(viewModelScope)
     }
     
-    private fun loadCharacter(characterId: Int) {
+    private fun loadCharacter(characterId: Long) {
         viewModelScope.launch {
             _character.value = characterRepository.getCharacterById(characterId)
         }
@@ -66,7 +66,7 @@ class StoryViewModel(
         if (current < materials.size - 1) {
             val nextIndex = current + 1
             _currentSlide.value = nextIndex
-            loadCharacter(materials[nextIndex].characterId)
+            // Character loading removed as Material no longer has characterId
         }
     }
     
@@ -75,13 +75,13 @@ class StoryViewModel(
         if (current > 0) {
             val prevIndex = current - 1
             _currentSlide.value = prevIndex
-            loadCharacter(materials[prevIndex].characterId)
+            // Character loading removed as Material no longer has characterId
         }
     }
     
     fun saveProgress(chapterId: Int, subject: String, position: Int) {
         viewModelScope.launch {
-            val progress = com.yourname.edunovel.domain.model.Progress(
+            val progress = Progress(
                 userId = currentUserId,
                 chapterId = chapterId,
                 subject = subject,

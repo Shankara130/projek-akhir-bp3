@@ -6,20 +6,21 @@ import com.example.edunovel.domain.repository.ProgressRepository
 import com.example.edunovel.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.first
 
 class GetChaptersUseCase(
     private val materialRepository: MaterialRepository,
     private val progressRepository: ProgressRepository
 ) {
-    operator fun invoke(userId: Int, subject: String): Flow<Resource<List<StoryChapter>>> = flow {
+    operator fun invoke(userId: Long, subject: String): Flow<Resource<List<StoryChapter>>> = flow {
         try {
-            emit(Resource.Loading())
+            emit(Resource.Loading)
             
             // Get materials grouped by chapter
-            val materials = materialRepository.getMaterialsBySubject(subject)
+            val materials = materialRepository.getMaterialsBySubject(subject).first()
             
             // Get user progress
-            val progressList = progressRepository.getProgressBySubject(userId, subject)
+            val progressList = progressRepository.getProgressBySubject(userId, subject).first()
             
             // TODO: Transform to StoryChapter list
             // For now, return empty list

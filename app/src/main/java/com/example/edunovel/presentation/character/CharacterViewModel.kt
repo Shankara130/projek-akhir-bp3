@@ -19,19 +19,19 @@ class CharacterViewModel(
     private val userPreferences: com.example.edunovel.data.local.preferences.UserPreferences
 ) : ViewModel() {
     
-    private val _characters = MutableLiveData<Resource<List>>()
-    val characters: LiveData<Resource<List>> = _characters
+    private val _characters = MutableLiveData<Resource<List<Character>>>()
+    val characters: LiveData<Resource<List<Character>>> = _characters
     
-    private val _createCharacterState = MutableLiveData<Resource>()
-    val createCharacterState: LiveData<Resource> = _createCharacterState
+    private val _createCharacterState = MutableLiveData<Resource<Long>>()
+    val createCharacterState: LiveData<Resource<Long>> = _createCharacterState
     
-    private val _updateCharacterState = MutableLiveData<Resource>()
-    val updateCharacterState: LiveData<Resource> = _updateCharacterState
+    private val _updateCharacterState = MutableLiveData<Resource<Unit>>()
+    val updateCharacterState: LiveData<Resource<Unit>> = _updateCharacterState
     
-    private val _deleteCharacterState = MutableLiveData<Resource>()
-    val deleteCharacterState: LiveData<Resource> = _deleteCharacterState
+    private val _deleteCharacterState = MutableLiveData<Resource<Unit>>()
+    val deleteCharacterState: LiveData<Resource<Unit>> = _deleteCharacterState
     
-    private var currentUserId: Int = 0
+    private var currentUserId: Long = 0L
     
     init {
         viewModelScope.launch {
@@ -45,6 +45,7 @@ class CharacterViewModel(
     }
     
     fun loadCharacters() {
+        if (currentUserId == 0L) return
         getUserCharactersUseCase(currentUserId).onEach { result ->
             _characters.value = result
         }.launchIn(viewModelScope)
@@ -69,7 +70,7 @@ class CharacterViewModel(
         }.launchIn(viewModelScope)
     }
     
-    fun deleteCharacter(characterId: Int) {
+    fun deleteCharacter(characterId: Long) {
         deleteCharacterUseCase(currentUserId, characterId).onEach { result ->
             _deleteCharacterState.value = result
             if (result is Resource.Success) {

@@ -26,7 +26,7 @@ val useCaseModule = module {
     factory { DeleteProgressUseCase(get()) }
     
     // Story Use Cases
-    factory { GetStoryContentUseCase(get(), get()) }
+    factory { GetStoryContentUseCase(get()) }
     factory { GetChaptersUseCase(get(), get()) }
     
     // Quiz Use Cases

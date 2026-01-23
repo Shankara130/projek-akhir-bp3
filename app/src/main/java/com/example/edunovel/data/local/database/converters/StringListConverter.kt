@@ -1,10 +1,10 @@
-package com.example.edunovel.data.local.database
+package com.example.edunovel.data.local.database.converters
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class Converters {
+class StringListConverter {
     
     private val gson = Gson()
     

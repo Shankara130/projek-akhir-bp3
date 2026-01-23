@@ -14,7 +14,7 @@ interface QuizQuestionDao {
     suspend fun insertQuestions(questions: List<QuizQuestionEntity>)
     
     @Query("SELECT * FROM quiz_questions WHERE subject = :subject")
-    fun getQuestionsBySubject(subject: String): Flow<List<QuizQuestionEntity>>
+    suspend fun getQuestionsBySubject(subject: String): List<QuizQuestionEntity>
     
     @Query("SELECT * FROM quiz_questions WHERE chapterId = :chapterId")
     suspend fun getQuestionsByChapter(chapterId: Int): List<QuizQuestionEntity>
@@ -23,5 +23,5 @@ interface QuizQuestionDao {
     suspend fun getRandomQuestions(subject: String, limit: Int): List<QuizQuestionEntity>
     
     @Query("DELETE FROM quiz_questions WHERE id = :questionId")
-    suspend fun deleteQuestion(questionId: Int)
+    suspend fun deleteQuestion(questionId: Long)
 }

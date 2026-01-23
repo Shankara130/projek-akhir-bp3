@@ -1,4 +1,4 @@
-package com.yourname.edunovel.presentation.character.adapter
+package com.example.edunovel.presentation.character.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.yourname.edunovel.R
-import com.yourname.edunovel.databinding.ItemCharacterBinding
-import com.yourname.edunovel.domain.model.Character
+import com.example.edunovel.R
+import com.example.edunovel.databinding.ItemCharacterBinding
+import com.example.edunovel.domain.model.Character
 
 class CharacterAdapter(
     private val onItemClick: (Character) -> Unit,
     private val onEditClick: (Character) -> Unit,
     private val onDeleteClick: (Character) -> Unit
-) : ListAdapter(CharacterDiffCallback()) {
+) : ListAdapter<Character, CharacterAdapter.CharacterViewHolder>(CharacterDiffCallback()) {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         val binding = ItemCharacterBinding.inflate(
@@ -49,7 +49,7 @@ class CharacterAdapter(
                 }
                 
                 // Load image
-                character.imageUri?.let { uriString ->
+                character.imageUrl.takeIf { it.isNotEmpty() }?.let { uriString ->
                     Glide.with(itemView.context)
                         .load(Uri.parse(uriString))
                         .placeholder(R.drawable.ic_character_placeholder)
@@ -68,7 +68,7 @@ class CharacterAdapter(
         }
     }
     
-    class CharacterDiffCallback : DiffUtil.ItemCallback() {
+    class CharacterDiffCallback : DiffUtil.ItemCallback<Character>() {
         override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
             return oldItem.id == newItem.id
         }

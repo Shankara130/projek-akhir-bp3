@@ -6,6 +6,8 @@ import com.example.edunovel.presentation.character.CharacterViewModel
 import com.example.edunovel.presentation.main.MainViewModel
 import com.example.edunovel.presentation.story.StoryViewModel
 import com.example.edunovel.presentation.quiz.QuizViewModel
+import com.example.edunovel.presentation.progress.ProgressViewModel
+import com.example.edunovel.presentation.highscore.HighScoreViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

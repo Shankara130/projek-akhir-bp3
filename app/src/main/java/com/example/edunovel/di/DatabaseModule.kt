@@ -11,12 +11,13 @@ val databaseModule = module {
     single { CoroutineScope(SupervisorJob()) }
     
     single {
-        AppDatabase.getDatabase(androidContext(), get())
+        AppDatabase.getInstance(androidContext())
     }
     
-    single { get().userDao() }
-    single { get().characterDao() }
-    single { get().progressDao() }
-    single { get().quizDao() }
-    single { get().materialDao() }
+    single { get<AppDatabase>().userDao() }
+    single { get<AppDatabase>().characterDao() }
+    single { get<AppDatabase>().progressDao() }
+    single { get<AppDatabase>().quizDao() }
+    single { get<AppDatabase>().quizQuestionDao() }
+    single { get<AppDatabase>().materialDao() }
 }

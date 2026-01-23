@@ -80,9 +80,9 @@ class CreateCharacterActivity : AppCompatActivity() {
             }
             
             // Load image if exists
-            character.imageUri?.let { uriString ->
+            character.imageUrl.takeIf { it.isNotEmpty() }?.let { uriString ->
                 selectedImageUri = Uri.parse(uriString)
-                loadImage(selectedImageUri!!)
+                selectedImageUri?.let { loadImage(it) }
             }
         }
     }
@@ -215,10 +215,10 @@ class CreateCharacterActivity : AppCompatActivity() {
         }
         
         val character = Character(
-            id = editingCharacter?.id ?: 0,
-            userId = 0, // Will be set in ViewModel
+            id = editingCharacter?.id ?: 0L,
+            userId = 0L, // Will be set in ViewModel
             name = name,
-            imageUri = selectedImageUri?.toString(),
+            imageUrl = selectedImageUri?.toString() ?: "",
             personality = personality,
             subject = subject,
             description = description,

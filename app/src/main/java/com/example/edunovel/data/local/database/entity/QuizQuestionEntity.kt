@@ -9,7 +9,7 @@ import com.example.edunovel.data.local.database.converters.StringListConverter
 @TypeConverters(StringListConverter::class)
 data class QuizQuestionEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val id: Long = 0,
     val subject: String,
     val chapterId: Int,
     val question: String,

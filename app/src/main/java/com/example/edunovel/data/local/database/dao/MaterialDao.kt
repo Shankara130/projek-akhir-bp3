@@ -10,14 +10,17 @@ interface MaterialDao {
     suspend fun insertMaterial(material: MaterialEntity): Long
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMaterials(materials: List)
+    suspend fun insertMaterials(materials: List<MaterialEntity>)
     
     @Query("SELECT * FROM materials WHERE subject = :subject ORDER BY orderIndex ASC")
-    fun getMaterialsBySubject(subject: String): Flow<List>
+    fun getMaterialsBySubject(subject: String): Flow<List<MaterialEntity>>
     
     @Query("SELECT * FROM materials WHERE chapterId = :chapterId ORDER BY orderIndex ASC")
-    suspend fun getMaterialsByChapter(chapterId: Int): List
+    suspend fun getMaterialsByChapter(chapterId: Int): List<MaterialEntity>
     
     @Query("SELECT * FROM materials WHERE id = :materialId")
-    suspend fun getMaterialById(materialId: Int): MaterialEntity?
+    suspend fun getMaterialById(materialId: Long): MaterialEntity?
+    
+    @Query("SELECT * FROM materials ORDER BY orderIndex ASC")
+    fun getAllMaterials(): Flow<List<MaterialEntity>>
 }

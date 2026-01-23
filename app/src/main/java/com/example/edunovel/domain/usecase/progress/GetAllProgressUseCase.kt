@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.map
 class GetAllProgressUseCase(
     private val repository: ProgressRepository
 ) {
-    operator fun invoke(userId: Int): Flow<Resource<List<Progress>>> {
+    operator fun invoke(userId: Long): Flow<Resource<List<Progress>>> {
         return repository.getAllProgress(userId)
             .map<List<Progress>, Resource<List<Progress>>> { 
                 Resource.Success(it) 

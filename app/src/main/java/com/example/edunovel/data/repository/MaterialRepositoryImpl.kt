@@ -29,31 +29,35 @@ class MaterialRepositoryImpl(
         return materialDao.getMaterialsByChapter(chapterId).map { it.toDomain() }
     }
     
-    override suspend fun getMaterialById(materialId: Int): Material? {
+    override suspend fun getMaterialById(materialId: Long): Material? {
         return materialDao.getMaterialById(materialId)?.toDomain()
+    }
+    
+    override fun getAllMaterials(): Flow<List<Material>> {
+        return materialDao.getAllMaterials().map { entities ->
+            entities.map { it.toDomain() }
+        }
     }
     
     private fun Material.toEntity() = MaterialEntity(
         id = id,
-        chapterId = chapterId,
-        subject = subject,
         title = title,
+        subject = subject,
+        chapterId = chapterId,
         content = content,
-        characterId = characterId,
-        dialogueText = dialogueText,
-        hasQuiz = hasQuiz,
-        orderIndex = orderIndex
+        type = type,
+        orderIndex = orderIndex,
+        createdAt = createdAt
     )
     
     private fun MaterialEntity.toDomain() = Material(
         id = id,
-        chapterId = chapterId,
-        subject = subject,
         title = title,
+        subject = subject,
+        chapterId = chapterId,
         content = content,
-        characterId = characterId,
-        dialogueText = dialogueText,
-        hasQuiz = hasQuiz,
-        orderIndex = orderIndex
+        type = type,
+        orderIndex = orderIndex,
+        createdAt = createdAt
     )
 }

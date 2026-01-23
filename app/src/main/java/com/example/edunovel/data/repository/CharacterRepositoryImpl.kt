@@ -23,27 +23,27 @@ class CharacterRepositoryImpl(
         characterDao.deleteCharacter(character.toEntity())
     }
     
-    override suspend fun getCharacterById(characterId: Int): Character? {
+    override suspend fun getCharacterById(characterId: Long): Character? {
         return characterDao.getCharacterById(characterId)?.toDomain()
     }
     
-    override fun getUserCharacters(userId: Int): Flow<List> {
+    override fun getUserCharacters(userId: Long): Flow<List<Character>> {
         return characterDao.getUserCharacters(userId).map { entities ->
             entities.map { it.toDomain() }
         }
     }
     
-    override fun getCharactersBySubject(userId: Int, subject: String): Flow<List> {
+    override fun getCharactersBySubject(userId: Long, subject: String): Flow<List<Character>> {
         return characterDao.getCharactersBySubject(userId, subject).map { entities ->
             entities.map { it.toDomain() }
         }
     }
     
-    override suspend fun getDefaultCharacters(): List {
+    override suspend fun getDefaultCharacters(): List<Character> {
         return characterDao.getDefaultCharacters().map { it.toDomain() }
     }
     
-    override suspend fun deleteUserCharacter(userId: Int, characterId: Int) {
+    override suspend fun deleteUserCharacter(userId: Long, characterId: Long) {
         characterDao.deleteUserCharacter(userId, characterId)
     }
     
@@ -52,7 +52,7 @@ class CharacterRepositoryImpl(
         id = id,
         userId = userId,
         name = name,
-        imageUri = imageUri,
+        imageUrl = imageUrl,
         personality = personality,
         subject = subject,
         description = description,
@@ -64,7 +64,7 @@ class CharacterRepositoryImpl(
         id = id,
         userId = userId,
         name = name,
-        imageUri = imageUri,
+        imageUrl = imageUrl,
         personality = personality,
         subject = subject,
         description = description,

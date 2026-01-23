@@ -27,9 +27,9 @@ class QuizResultActivity : AppCompatActivity() {
     }
     
     private fun setupUI() {
-        val score = quizSession.calculateScore()
-        val correct = quizSession.getCorrectCount()
-        val total = quizSession.getTotalQuestions()
+        val score = quizSession.score
+        val correct = quizSession.correctAnswers
+        val total = quizSession.totalQuestions
         
         binding.apply {
             tvScore.text = "$score%"
